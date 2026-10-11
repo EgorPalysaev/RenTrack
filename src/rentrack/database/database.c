@@ -9,7 +9,7 @@ sqlite3 *setupDB(){
         if (db != NULL) sqlite3_close(db);
 	return NULL;
     }
-    int rc = sqlite3_exec(db, "PRAGMA FOREIGN_KEYS = ON", 0, 0, &errMsg);
+    int rc = sqlite3_exec(db, "PRAGMA FOREIGN_KEYS = ON;", 0, 0, &errMsg);
     if (rc != SQLITE_OK){
 	fprintf(stderr, "Can not set PRAGMA FOREIGN_KEYS %s\n", errMsg ? errMsg : sqlite3_errmsg(db));
 	sqlite3_free(errMsg);

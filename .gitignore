@@ -16,7 +16,7 @@ ENV/
 requirements.txt.log
 
 # Локальные базы данных и конфигурационные файлы пользователя
-*.db
+#*.db
 *.sqlite3
 .idea/
 .vscode/
