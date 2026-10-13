@@ -21,10 +21,12 @@ void menu(sqlite3* db){
 	case 'A':
 	case 'a':
 	    auth(db);
-	    return;
+	    return
 	case 'R':
 	case 'r':
-	    registration(db);
+	    if (registration(db) == ERROR){
+		printf("Error corrupted\n");
+		return;
 	    return;
     }
 }

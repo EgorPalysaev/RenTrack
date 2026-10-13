@@ -1,9 +1,7 @@
---CREATE DATABASE data;
---PRAGMA foreign_keys = ON;
-
 DROP TABLE IF EXISTS `user_name`;
 DROP TABLE IF EXISTS `role_name`;
 DROP TABLE IF EXISTS `premise`;
+DROP TABLE IF EXISTS `user_rent`;
 DROP TABLE IF EXISTS `status`;
 
 CREATE TABLE role_name(
@@ -22,8 +20,8 @@ INSERT INTO `role_name` VALUES (2, 'Landlord');
 
 INSERT INTO `status` (Status) VALUES ('Active'), ('Inactive'), ('In rent');
 
-CREATE TABLE user_name(					 --DROP TABLE <name> means delete table
-	UserID INTEGER PRIMARY KEY AUTOINCREMENT,		 --AUTO_INCREMENT means id++, AUTOINCREMENT means unique id also after deleting
+CREATE TABLE user_name(	
+	UserID INTEGER PRIMARY KEY AUTOINCREMENT,			
 	Role INTEGER NOT NULL,
 	login varchar(32) NOT NULL,
 	password varchar(32) NOT NULL,
@@ -33,18 +31,19 @@ CREATE TABLE user_name(					 --DROP TABLE <name> means delete table
 	FOREIGN KEY(Role) REFERENCES role_name(RoleID)
 );
 
---INSERT INTO user_name (Role, Name, surname, patronymic) VALUES (2, 'Egor', 'Palysaev', 'Aleksandrovich');
---INSERT INTO user_role(Role, `User`) VALUES ((SELECT Role FROM role_name WHERE RoleID = 1), (SELECT user_name.Name WHERE userID = 1));
-
 CREATE TABLE premise(
 	PremiseID INTEGER PRIMARY KEY AUTOINCREMENT,
-	Premise_Address TEXT,
+	Premise_Address TEXT NOT NULL,
 	Specification TEXT DEFAULT NULL,
+	Status INTEGER NOT NULL,
+	FOREIGN KEY(Status) REFERENCES status(StatusID)
+);
+CREATE TABLE user_rent(
+	RentID INTEGER PRIMARY KEY AUTOINCREMENT,
+	UserID INTEGER NOT NULL,
+	PremiseID INTEGER NOT NULL,
 	Start_rent DATE DEFAULT CURRENT_TIMESTAMP,
 	End_rent DATE DEFAULT NULL,
-	Role INTEGER NOT NULL,
-	Status INTEGER NOT NULL,
-
-	FOREIGN KEY(Status) REFERENCES status(StatusID),
-	FOREIGN KEY(Role) REFERENCES user_name(userID)
+	FOREIGN KEY(PremiseID) REFERENCES premise(PremiseID),
+	FOREIGN KEY(UserID) REFERENCES user_name(UserID)
 );

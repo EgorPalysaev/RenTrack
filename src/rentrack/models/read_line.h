@@ -1,11 +1,12 @@
+#ifndef READ_LINE_H
+#define READ_LINE_H
 #include <stdio.h>
 #include <sqlite3.h>
 #include <string.h>
 #include <stddef.h>
 #include "../../rentrack.h"
 
-int read_line(const char *prompt, char *buf, size_t size){
-    
+enum RES read_line(const char *prompt, char *buf, size_t size){
     printf("%s", prompt);
 
     if (fgets(buf, size, stdin) == NULL) return INPUT_ERROR;
@@ -23,4 +24,4 @@ int read_line(const char *prompt, char *buf, size_t size){
     if (*buf == '\0') return INPUT_ERROR;
     return INPUT_OK;
 }
-
+#endif
