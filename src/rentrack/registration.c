@@ -7,6 +7,7 @@
 enum ERR registration(sqlite3* db){
     enum ERR res;
     printf("Choose a options: [T]enant, [L]andlord\n");
+    printf("> ");
     int input = getchar();
     while (getchar() != '\n')
 	;

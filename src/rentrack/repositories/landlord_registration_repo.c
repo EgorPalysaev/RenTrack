@@ -10,7 +10,7 @@ enum ERR landlord_registration_repo(sqlite3 *db, char *name, char *surname,char 
 
     const char *sql = 
     "INSERT INTO user_name"
-    "(Role, login, password, Name, Surname, Patronymic)"
+    "(RoleID, login, password, Name, Surname, Patronymic)"
     "VALUES (?, ?, ?, ?, ?, ?);";
 
     sqlite3_stmt *stmt = NULL;
