@@ -1,7 +1,6 @@
 #include <stdio.h>
 #include <sqlite3.h>
-#include "../../rentrack.h"
-#include <string.h>
+#include "../rentrack.h"
 #include "../services/landlord_registration_check.c"
 
 enum ERR landlord_registration_repo(sqlite3 *db, char *name, char *surname,char *patronymic, char *login, char *password){

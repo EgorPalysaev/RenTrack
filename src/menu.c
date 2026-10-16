@@ -2,13 +2,13 @@
 #include <sqlite3.h>
 #include "registration.c"
 #include "auth.c"
-#include "../rentrack.h"
+#include "rentrack.h"
 
 void menu(sqlite3* db){
     printf("---------------------------------\n");
     printf("T E R M I N A L   R E N T R A C K\n");
     printf("---------------------------------\n\n");
-    printf("[A]uthorize, [R]egister, [Q]uit, R[E]covery\n");
+    printf("[A]uthorize, [R]egister, [Q]uit, [H]elp\n");
     printf("> ");
     char input = getchar();
     while(getchar() != '\n')
@@ -29,8 +29,8 @@ void menu(sqlite3* db){
 		return;
 	    }
 	    return;
-	case 'E':
-	case 'e':
+	case 'H':
+	case 'h':
 	    printf("\nContact our support: tech.support@mail.com\n");
 	    return;
     }

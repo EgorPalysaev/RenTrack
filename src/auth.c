@@ -1,13 +1,13 @@
 #include <sqlite3.h>
-#include "../rentrack.h"
+#include "rentrack.h"
 #include <stdio.h>
-#include "models/read_line.h"
 #include "repositories/auth_repo.c"
-#include "repositories/get_role.c"
 
 enum ERR auth(sqlite3 *db){
     char login[32];
     char password[32];
+    int id = -1, role = -1;
+    int *p_id = &id, *p_role = &role;
 
     if (read_line("\nEnter your login: ", login, sizeof login) != INPUT_OK){
 	printf("Error");
@@ -17,15 +17,18 @@ enum ERR auth(sqlite3 *db){
 	printf("Error");
 	return ERROR;
     }
-    switch(get_role(db, login, auth_repo(db, login, password))){
+    if (auth_repo(db, login, password, p_id, p_role) == ERROR) return ERROR;
+    switch(role){
 	case 1:
 	    printf("[D]ata, [P]remise, [S]how availiable premise\n");
-	    printf("> ");
+	    printf("> %d%d", role, id);
 	    break;
 	case 2:
 	    printf("[A]dd, [D]elete, [U]pdate, [S]how data\n");
-	    printf("> ");
+	    printf("> %d%d", role, id);
 	    break;
+	default:
+	    printf("good");
     }
     return OK;
 }

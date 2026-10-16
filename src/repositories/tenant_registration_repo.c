@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <sqlite3.h>
-#include "../../rentrack.h"
+#include "../rentrack.h"
 #include "../services/tenant_registration_check.c"
 
 enum ERR tenant_registration_repo(sqlite3* db, char * name, char* surname, char* patronymic, char* login, char* password){

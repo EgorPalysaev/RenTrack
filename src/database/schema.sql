@@ -3,6 +3,7 @@ DROP TABLE IF EXISTS `role_name`;
 DROP TABLE IF EXISTS `premise`;
 DROP TABLE IF EXISTS `user_rent`;
 DROP TABLE IF EXISTS `status`;
+DROP TABLE IF EXISTS `specification`;
 
 CREATE TABLE role_name(
 	RoleID INTEGER PRIMARY KEY NOT NULL,
@@ -33,10 +34,10 @@ CREATE TABLE user_name(
 
 CREATE TABLE premise(
 	PremiseID INTEGER PRIMARY KEY AUTOINCREMENT,
-	Premise_Address TEXT NOT NULL,
-	Specification TEXT DEFAULT NULL,
-	Status INTEGER NOT NULL,
-	FOREIGN KEY(Status) REFERENCES status(StatusID)
+	SpecificationID INTEGER NOT NULL,
+	StatusID INTEGER NOT NULL,
+	FOREIGN KEY(StatusID) REFERENCES status(StatusID)
+	FOREIGN KEY(SpecificationID) REFERENCES specification(SpecificationID)
 );
 CREATE TABLE user_rent(
 	RentID INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -46,4 +47,10 @@ CREATE TABLE user_rent(
 	End_rent DATE DEFAULT NULL,
 	FOREIGN KEY(PremiseID) REFERENCES premise(PremiseID),
 	FOREIGN KEY(UserID) REFERENCES user_name(UserID)
+);
+CREATE TABLE specification(
+	SpecificationID INTEGER PRIMARY KEY AUTOINCREMENT,
+	Address TEXT NOT NULL,
+	Area TEXT NOT NULL,
+	Comment DEFAULT NULL
 );

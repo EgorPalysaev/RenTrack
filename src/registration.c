@@ -1,8 +1,8 @@
 #include <stdio.h>
 #include <sqlite3.h>
-#include "../rentrack.h"
-#include "models/tenant_registration.c"
-#include "models/landlord_registration.c"
+#include "rentrack.h"
+#include "services/tenant_registration.c"
+#include "services/landlord_registration.c"
 
 enum ERR registration(sqlite3* db){
     enum ERR res;

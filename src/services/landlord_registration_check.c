@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <sqlite3.h>
-#include "../../rentrack.h"
+#include "../rentrack.h"
 
 enum ERR landlord_registration_check(sqlite3 *db, char *login){
     sqlite3_stmt *stmt = NULL;
