@@ -1,7 +1,3 @@
-#include <stdio.h>
-#include <sqlite3.h>
-#include "registration.c"
-#include "auth.c"
 #include "rentrack.h"
 
 void menu(sqlite3* db){

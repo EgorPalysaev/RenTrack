@@ -1,7 +1,4 @@
-#include <stdio.h>
-#include <sqlite3.h>
-#include "database/database.c"
-#include "menu.c"
+#include "rentrack.h"
 
 int main(){
     sqlite3 *db = setupDB();

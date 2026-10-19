@@ -1,5 +1,3 @@
-#include <stdio.h>
-#include <sqlite3.h>
 #include "../rentrack.h"
 
 enum ERR auth_repo(sqlite3 *db, const char *login, const char *password, int* id, int* role){

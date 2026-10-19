@@ -1,7 +1,4 @@
-#include <sqlite3.h>
 #include "rentrack.h"
-#include <stdio.h>
-#include "repositories/auth_repo.c"
 
 enum ERR auth(sqlite3 *db){
     char login[32];
@@ -21,14 +18,48 @@ enum ERR auth(sqlite3 *db){
     switch(role){
 	case 1:
 	    printf("[D]ata, [P]remise, [S]how availiable premise\n");
-	    printf("> %d%d", role, id);
+	    printf("> ");
+	    char input = getchar();
+	    while(getchar() != '\n')
+		;
+	    switch (input){
+		case 'D':
+		case 'd':
+		    list_data(db, id);
+		    break;
+	    }
 	    break;
 	case 2:
 	    printf("[A]dd, [D]elete, [U]pdate, [S]how data\n");
-	    printf("> %d%d", role, id);
+	    printf("> ");
+	    input = getchar();
+	    while(getchar() != '\n')
+		;
+	    switch (input){
+		case 'S':
+		case 's':
+		    list_data(db, id);
+		    break;
+		case 'A':
+		case 'a':
+		    printf("[P]remise, [U]ser\n");
+		    printf("> ");
+		    input = getchar();
+		    while(getchar() != '\n')
+			;
+		    switch (input){
+			case 'P':
+			case 'p':
+			    add_premise(db);
+			    break;
+			case 'U':
+			case 'u':
+			    if (registration(db) == ERROR) printf("\nError corrupted\n");
+			    break;
+		    break;
+		    }
+	    }
 	    break;
-	default:
-	    printf("good");
     }
     return OK;
 }

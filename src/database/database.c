@@ -1,5 +1,4 @@
-#include <sqlite3.h>
-#include <stdio.h>
+#include "../rentrack.h"
 sqlite3 *setupDB(){
     char *errMsg = NULL;
     sqlite3 *db = NULL;
