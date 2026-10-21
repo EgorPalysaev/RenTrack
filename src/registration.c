@@ -4,17 +4,20 @@ enum ERR registration(sqlite3* db){
     enum ERR res;
     printf("Choose a options: [T]enant, [L]andlord\n");
     printf("> ");
+    int Role = 0;
     int input = getchar();
     while (getchar() != '\n')
 	;
     switch (input){
 	case 'T':
 	case 't':
-	    if ((res = tenant_registration(db)) == ERROR) return ERROR;
-	    return OK;
+	    Role = 1;
+	    break;
 	case 'L':
 	case 'l':
-	    if ((res = landlord_registration(db)) == ERROR) return ERROR;
-	    return OK;
+	    Role = 2;
+	    break;
     }
+    if ((res = data_registration(db, Role)) == ERROR) return ERROR;
+    return OK;
 }

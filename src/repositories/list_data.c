@@ -1,6 +1,6 @@
 #include "../rentrack.h"
 
-enum ERR list_data(sqlite3 *db, int id){
+enum ERR your_data(sqlite3 *db, int id){
     sqlite3_stmt *stmt = NULL;
     if (sqlite3_prepare_v2(db, "SELECT * FROM user_name WHERE UserID = ? LIMIT 1;", -1, &stmt, NULL) != SQLITE_OK){
 	fprintf(stderr, "SQLite error: %s\n", sqlite3_errmsg(db));

@@ -92,7 +92,7 @@ cd RenTrack/
 ```
 ## Запуск приложения
 Из корневой папки выполните:  
-`gcc main.c menu.c auth.c registration.c services/tenant_registration.c services/landlord_registration.c repositories/tenant_registration_repo.c repositories/landlord_registration_repo.c repositories/list_data.c repositories/auth_repo.c repositories/add_premise.c services/utils.c database/database.c -o app.exe -lsqlite3`
+`gcc main.c menu.c auth.c registration.c services/data_registration.c repositories/registration_repo.c repositories/list_data.c repositories/auth_repo.c repositories/add_premise.c services/utils.c database/database.c -o app.exe -lsqlite3`
 
 Запустите main.exe  
 ## Используемые технологии
