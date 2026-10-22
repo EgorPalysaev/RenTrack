@@ -92,9 +92,9 @@ cd RenTrack/
 ```
 ## Запуск приложения
 Из корневой папки выполните:  
-`gcc main.c menu.c auth.c registration.c services/data_registration.c repositories/registration_repo.c repositories/list_data.c repositories/auth_repo.c repositories/add_premise.c services/utils.c database/database.c -o app.exe -lsqlite3`
+```make```
 
-Запустите main.exe  
+```app.exe```  
 ## Используемые технологии
 - C 2023;
 - Git 2.55.0;
