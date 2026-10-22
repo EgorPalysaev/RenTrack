@@ -25,7 +25,7 @@ enum ERR auth(sqlite3 *db){
 	    switch (input){
 		case 'D':
 		case 'd':
-		    your_data(db, id);
+		    user_data(db, id);
 		    break;
 	    }
 	    break;
@@ -36,42 +36,42 @@ enum ERR auth(sqlite3 *db){
 	    while(getchar() != '\n')
 		;
 	    switch (input){
-		case 'D':
-		case 'd':
-		    printf("[P]remise, [U]ser\n");
-		    printf("> ");
-		    input = getchar();
-		    while(getchar() != '\n')
-			;
-		    switch (input){
-			case 'P':
-			case 'p':
-			    delete_premise(db);
-			    break;
-			case 'U':
-			case 'u':
-			    delete_user(db);
-			    break;
-		    break;
-		    }
-		case 'U':
-		case 'u':
-		    printf("[P]remise, [U]ser\n");
-		    printf("> ");
-		    input = getchar();
-		    while(getchar() != '\n')
-			;
-		    switch (input){
-			case 'P':
-			case 'p':
-			    update_premise(db);
-			    break;
-			case 'U':
-			case 'u':
-			    update_user(db);
-			    break;
-		    break;
-		    }
+		// case 'D':
+		// case 'd':
+		//     printf("[P]remise, [U]ser\n");
+		//     printf("> ");
+		//     input = getchar();
+		//     while(getchar() != '\n')
+		// 	;
+		//     switch (input){
+		// 	case 'P':
+		// 	case 'p':
+		// 	    delete_premise(db);
+		// 	    break;
+		// 	case 'U':
+		// 	case 'u':
+		// 	    delete_user(db);
+		// 	    break;
+		//     break;
+		//     }
+		// case 'U':
+		// case 'u':
+		//     printf("[P]remise, [U]ser\n");
+		//     printf("> ");
+		//     input = getchar();
+		//     while(getchar() != '\n')
+		// 	;
+		//     switch (input){
+		// 	case 'P':
+		// 	case 'p':
+		// 	    update_premise(db);
+		// 	    break;
+		// 	case 'U':
+		// 	case 'u':
+		// 	    update_user(db);
+		// 	    break;
+		//     break;
+		//     }
 		case 'S':
 		case 's':
 		    printf("[P]remises, [U]sers, [Y]our data\n");
@@ -82,18 +82,18 @@ enum ERR auth(sqlite3 *db){
 		    switch (input){
 			case 'P':
 			case 'p':
-			    users_data(db);
+			    show_all_data(db, "premise");
 			    break;
 			case 'U':
 			case 'u':
-			    premises_data(db);
+			    show_all_data(db, "user_name");
 			    break;
 			case 'Y':
 			case 'y':
-			    your_data(db);
+			    user_data(db, id);
 			    break;
-		    break;
 		    }
+		    break;
 		case 'A':
 		case 'a':
 		    printf("[P]remise, [U]ser\n");
@@ -110,8 +110,8 @@ enum ERR auth(sqlite3 *db){
 			case 'u':
 			    if (registration(db) == ERROR) printf("\nError corrupted\n");
 			    break;
-		    break;
 		    }
+		    break;
 	    }
 	    break;
     }

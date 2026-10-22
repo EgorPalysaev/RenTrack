@@ -1,7 +1,7 @@
 #include "../rentrack.h"
 
 enum ERR add_premise(sqlite3* db){
-    char address[256], area[32], comment[512];
+    char address[128], area[8], comment[512];
     while (1){
 	if (read_line("\nEnter address: ", address, sizeof address, 0) != INPUT_OK) continue;
 	if (read_line("\nEnter area: ", area, sizeof area, 0) != INPUT_OK || checknum(area) != OK) continue;

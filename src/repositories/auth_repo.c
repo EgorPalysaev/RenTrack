@@ -12,7 +12,7 @@ enum ERR auth_repo(sqlite3 *db, const char *login, const char *password, int* id
 	return ERROR;
     }
     if (sqlite3_step(stmt) == SQLITE_ROW){
-	if (string_check(password, sqlite3_column_text(stmt, 3), sqlite3_column_bytes(stmt, 3)) == OK){
+	if (string_check(password, (const char *)sqlite3_column_text(stmt, 3), sqlite3_column_bytes(stmt, 3)) == OK){
 	    *id = (int)sqlite3_column_int(stmt, 0);
 	    *role = (int)sqlite3_column_int(stmt, 1);
 	    sqlite3_finalize(stmt);

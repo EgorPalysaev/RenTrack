@@ -7,7 +7,7 @@ enum ERR encrypt(){
     printf("> ");
     if (fgets(key, 64 * sizeof(char), stdin) == NULL) return ERROR;
     key[strcspn(key, "\n")] = '\0';
-    for(int i = 0; i < strlen(key); i++){
+    for(int i = 0; i < (int)strlen(key); i++){
 	if (*(key + i) != *(secret_key + i)) return ERROR;
     }
     return OK;

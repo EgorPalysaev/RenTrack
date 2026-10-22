@@ -2,7 +2,6 @@
 
 enum ERR data_registration(sqlite3* db, int Role){
     if (Role == 2){
-	char key[256];
 	enum ERR rc;
 	if ((rc = encrypt()) != OK) return ERROR;
     }
