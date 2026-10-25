@@ -1,5 +1,6 @@
 #include "rentrack.h"
 
+
 enum ERR auth(sqlite3 *db){
     char login[32];
     char password[32];

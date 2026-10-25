@@ -5,36 +5,34 @@ DROP TABLE IF EXISTS `user_rent`;
 DROP TABLE IF EXISTS `status`;
 
 CREATE TABLE role_name(
-	RoleID INTEGER PRIMARY KEY NOT NULL,
-	Role VARCHAR(16) NOT NULL
+	RoleID INTEGER PRIMARY KEY AUTOINCREMENT,
+	Role TEXT NOT NULL UNIQUE
 );
 
 CREATE TABLE status(
 	StatusID INTEGER PRIMARY KEY AUTOINCREMENT,
-	Status VARCHAR(16) NOT NULL
+	Status TEXT NOT NULL UNIQUE
 
 );
 
-INSERT INTO `role_name` VALUES (1, 'Tenant');
-INSERT INTO `role_name` VALUES (2, 'Landlord');
-
+INSERT INTO `role_name` VALUES ('Tenant'), ('Landlord');
 INSERT INTO `status` (Status) VALUES ('Active'), ('Inactive'), ('In rent');
 
 CREATE TABLE user_name(	
 	UserID INTEGER PRIMARY KEY AUTOINCREMENT,			
 	RoleID INTEGER NOT NULL,
-	login varchar(32) NOT NULL,
-	password varchar(32) NOT NULL,
-	Name varchar(32) NOT NULL,			 --VARCHAR() can encode under 256 symdols
-	Surname varchar(32) NOT NULL,			 --TEXT can encode under 2^16 symbols
-	Patronymic varchar(32) NOT NULL,
+	login TEXT NOT NULL UNIQUE CHECK (length(login <= 32)),
+	password TEXT NOT NULL CHECK (length(password <= 32)),
+	Name TEXT NOT NULL CHECK (length(Name <= 32)),			 --VARCHAR() can encode under 256 symdols
+	Surname TEXT NOT NULL CHECK (length(Surname <= 32)),			 --TEXT can encode under 2^16 symbols
+	Patronymic TEXT DEFAULT NULL CHECK (Patronymic IS NULL OR length(Patronymic <= 32)),
 	FOREIGN KEY(RoleID) REFERENCES role_name(RoleID)
 );
 
 CREATE TABLE premise(
 	PremiseID INTEGER PRIMARY KEY AUTOINCREMENT,
 	Address TEXT NOT NULL,
-	Area INTEGER NOT NULL,
+	Area REAL NOT NULL CHECK (Area > 0),
 	Comment TEXT DEFAULT NULL,
 	StatusID INTEGER NOT NULL,
 	FOREIGN KEY(StatusID) REFERENCES status(StatusID)
@@ -45,6 +43,7 @@ CREATE TABLE user_rent(
 	PremiseID INTEGER NOT NULL,
 	Start_rent DATE DEFAULT CURRENT_TIMESTAMP,
 	End_rent DATE DEFAULT NULL,
+	CHECK(End_rent IS NULL OR End_rent >= Start_rent),
 	FOREIGN KEY(PremiseID) REFERENCES premise(PremiseID),
 	FOREIGN KEY(UserID) REFERENCES user_name(UserID)
 )
