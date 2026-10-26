@@ -34,15 +34,13 @@ enum ERR show_all_data(sqlite3 *db, const char *table){
 	    return ERROR;
 	}
 
-	printf("┏━━━━━━━━━━━┳━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━┓\n");
-	printf("┃ %-10s┃  %-10s┃  %-16s┃  %-16s┃", "PremiseID", "Role", "login", "password");
-	printf("  %-18s┃  %-16s┃  %-16s┃\n", "Name", "Surname", "Patronymic");
+	printf("┏━━━━━━━━━━━┳━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━┓\n");
+	printf("┃ %-10s┃  %-10s┃  %-16s┃  %-16s┃  %-18s┃\n", "PremiseID", "Address", "Area", "Comment", "Status");
 	while (sqlite3_step(stmt) == SQLITE_ROW){
-	    printf("┣━━━━━━━━━━━╋━━━━━━━━━━━━╋━━━━━━━━━━━━━━━━━━╋━━━━━━━━━━━━━━━━━━╋━━━━━━━━━━━━━━━━━━━━╋━━━━━━━━━━━━━━━━━━╋━━━━━━━━━━━━━━━━━━┫\n");
-	    printf("┃ %-6d  ┃  %-10s┃  %-16s┃  %-16s┃", sqlite3_column_int(stmt, 0), sqlite3_column_int(stmt, 1) == 1 ? "Tenant" : "Landlord", (char *)sqlite3_column_text(stmt, 2), (char *)sqlite3_column_text(stmt, 3));
-	    printf("  %-18s┃  %-16s┃  %-16s┃\n", (char *)sqlite3_column_text(stmt, 4), (char *)sqlite3_column_text(stmt, 5), (char *)sqlite3_column_text(stmt, 6));
+	    printf("┣━━━━━━━━━━━╋━━━━━━━━━━━━╋━━━━━━━━━━━━━━━━━━╋━━━━━━━━━━━━━━━━━━╋━━━━━━━━━━━━━━━━━━━━┫\n");
+	    printf("┃ %-8d  ┃  %-10s┃  %-16d┃  %-16s┃  %-18d┃\n", sqlite3_column_int(stmt, 0), (char *)sqlite3_column_text(stmt, 1), sqlite3_column_int(stmt, 2), (char *)sqlite3_column_text(stmt, 3), sqlite3_column_int(stmt, 4));
 	}
-	printf("┗━━━━━━━━━━━┻━━━━━━━━━━━━┻━━━━━━━━━━━━━━━━━━┻━━━━━━━━━━━━━━━━━━┻━━━━━━━━━━━━━━━━━━━━┻━━━━━━━━━━━━━━━━━━┻━━━━━━━━━━━━━━━━━━┛\n");
+	printf("┗━━━━━━━━━━━┻━━━━━━━━━━━━┻━━━━━━━━━━━━━━━━━━┻━━━━━━━━━━━━━━━━━━┻━━━━━━━━━━━━━━━━━━━━┛\n");
 	sqlite3_finalize(stmt);
 	return OK;
     }

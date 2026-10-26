@@ -39,7 +39,20 @@ enum ERR string_check(const char *s1, const char *s2, int x){
 }
 
 
-enum ERR checknum(char* str){
+enum ERR checknum(const char* str){
+    if (str == NULL || *str == '\0') return ERROR;
     while(*str != '\0') if (*str < '0' || *str++ > '9') return ERROR;
+    return OK;
+}
+
+enum ERR string_to_decimal(const char *str, int *result){
+    int decimal = 0;
+    if (checknum(str) == OK){
+	for (; *str != '\0'; str++){
+	    decimal += decimal * 10 + (int)(*str - '0');
+	}
+    }		
+    if (decimal == 0) return ERROR;
+    *result = decimal;
     return OK;
 }

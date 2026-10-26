@@ -15,7 +15,7 @@ enum ERR auth(sqlite3 *db){
 	printf("Error");
 	return ERROR;
     }
-    if (auth_repo(db, login, password, p_id, p_role) == ERROR) return ERROR;
+    if (auth_repo(db, login, password, p_id, p_role) != OK) return ERROR;
     switch(role){
 	case 1:
 	    printf("[D]ata, [R]ent, [P]remise\n");
@@ -37,42 +37,45 @@ enum ERR auth(sqlite3 *db){
 	    while(getchar() != '\n')
 		;
 	    switch (input){
-		// case 'D':
-		// case 'd':
-		//     printf("[P]remise, [U]ser\n");
-		//     printf("> ");
-		//     input = getchar();
-		//     while(getchar() != '\n')
-		// 	;
-		//     switch (input){
-		// 	case 'P':
-		// 	case 'p':
-		// 	    delete_premise(db);
-		// 	    break;
-		// 	case 'U':
-		// 	case 'u':
-		// 	    delete_user(db);
-		// 	    break;
-		//     break;
-		//     }
-		// case 'U':
-		// case 'u':
-		//     printf("[P]remise, [U]ser\n");
-		//     printf("> ");
-		//     input = getchar();
-		//     while(getchar() != '\n')
-		// 	;
-		//     switch (input){
-		// 	case 'P':
-		// 	case 'p':
-		// 	    update_premise(db);
-		// 	    break;
-		// 	case 'U':
-		// 	case 'u':
-		// 	    update_user(db);
-		// 	    break;
-		//     break;
-		//     }
+		case 'D':
+		case 'd':
+		    printf("[P]remise, [U]ser\n");
+		    printf("> ");
+		    input = getchar();
+		    while(getchar() != '\n')
+			;
+		    switch (input){
+			case 'P':
+			case 'p':
+			    delete_repo(db, "premise");
+			    break;
+			case 'U':
+			case 'u':
+			    delete_repo(db, "user_name");
+			    break;
+		    }
+		    break;
+		case 'U':
+		case 'u':
+		    char value_update[512], column_update[512];
+		    printf("[P]remise, [U]ser\n");
+		    printf("> ");
+		    input = getchar();
+		    while(getchar() != '\n')
+			;
+		    switch (input){
+			case 'P':
+			case 'p':
+			    update_service('P', column_update, value_update);
+			    update_repo(db, "premise", column_update, value_update, 2);
+			    break;
+			case 'U':
+			case 'u':
+			    update_service('U', column_update, value_update);
+			    update_repo(db, "user_name", column_update, value_update, 3);
+			    break;
+		    }
+		    break;
 		case 'S':
 		case 's':
 		    printf("[P]remises, [U]sers, [Y]our data\n");

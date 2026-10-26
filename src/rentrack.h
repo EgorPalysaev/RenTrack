@@ -6,8 +6,9 @@
 #include <sqlite3.h>
 #include <string.h>
 #include <stddef.h>
+#include <math.h>
 
-enum ERR { OK, ERROR };
+enum ERR { OK = 1, ERROR = -1};
 enum RES { INPUT_OK, INPUT_ERROR, INPUT_TOO_LONG, INPUT_TOO_SMALL};
 
 
@@ -24,17 +25,21 @@ enum ERR auth_repo(sqlite3 *db, const char *login, const char *password, int* id
 enum ERR user_data(sqlite3 *db, int id);
 enum ERR registration_repo(sqlite3* db, char * name, char* surname, char* patronymic, char* login, char* password, int Role);
 enum ERR show_all_data(sqlite3 *db, const char *table);
+enum ERR delete_repo(sqlite3 *db, const char *table);
+enum ERR update_repo(sqlite3 *db, const char *table, const char *column, const char *value, sqlite3_int64 id);
 
 
 // services
 enum ERR data_registration(sqlite3* db, int Role);
 enum ERR add_premise(sqlite3* db);
+enum ERR update_service(const char table, char *column, char *value);
 
 
 // Utils
-enum ERR checknum(char* str);
+enum ERR checknum(const char* str);
 enum ERR encrypt();
 enum RES read_line(const char *prompt, char *buf, size_t size, int key);
 enum ERR string_check(const char *s1, const char *s2, int x);
+enum ERR string_to_decimal(const char *str, int *result);
 
 #endif
