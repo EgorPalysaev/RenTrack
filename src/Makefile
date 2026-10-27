@@ -1,6 +1,6 @@
 CC = gcc
 CFLAGS = -Wall -Wextra -Werror
-LDLIBS = -lsqlite3 -lm
+LDLIBS = -lsqlite3 
 
 SOURCES = main.c menu.c auth.c registration.c \
           services/data_registration.c \
@@ -14,7 +14,8 @@ SOURCES = main.c menu.c auth.c registration.c \
           database/database.c \
 	  repositories/delete.c \
 	  repositories/update_repo.c \
-	  services/update_service.c
+	  services/update_service.c \
+	  repositories/rent_repo.c
 
 app.exe: $(SOURCES)
 	$(CC) $(CFLAGS) $(SOURCES) -o $@ $(LDLIBS)

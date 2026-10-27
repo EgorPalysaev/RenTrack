@@ -18,7 +18,7 @@ enum ERR auth(sqlite3 *db){
     if (auth_repo(db, login, password, p_id, p_role) != OK) return ERROR;
     switch(role){
 	case 1:
-	    printf("[D]ata, [R]ent, [P]remise\n");
+	    printf("[D]ata, [R]ent, [Y]our rent, [A]vailable premise\n");
 	    printf("> ");
 	    char input = getchar();
 	    while(getchar() != '\n')
@@ -27,6 +27,11 @@ enum ERR auth(sqlite3 *db){
 		case 'D':
 		case 'd':
 		    user_data(db, id);
+		    break;
+		case 'R':
+		case 'r':
+		    show_all_data(db, "premise", 1);
+		    rent_repo(db, id);
 		    break;
 	    }
 	    break;
@@ -57,7 +62,8 @@ enum ERR auth(sqlite3 *db){
 		    break;
 		case 'U':
 		case 'u':
-		    char value_update[512], column_update[512];
+		    char value_update[512], column_update[32];
+		    int id = 0;
 		    printf("[P]remise, [U]ser\n");
 		    printf("> ");
 		    input = getchar();
@@ -66,13 +72,13 @@ enum ERR auth(sqlite3 *db){
 		    switch (input){
 			case 'P':
 			case 'p':
-			    update_service('P', column_update, value_update);
-			    update_repo(db, "premise", column_update, value_update, 2);
+			    update_service('P', column_update, value_update, &id);
+			    update_repo(db, "premise", column_update, value_update, id);
 			    break;
 			case 'U':
 			case 'u':
-			    update_service('U', column_update, value_update);
-			    update_repo(db, "user_name", column_update, value_update, 3);
+			    update_service('U', column_update, value_update, &id);
+			    update_repo(db, "user_name", column_update, value_update, id);
 			    break;
 		    }
 		    break;
@@ -86,11 +92,11 @@ enum ERR auth(sqlite3 *db){
 		    switch (input){
 			case 'P':
 			case 'p':
-			    show_all_data(db, "premise");
+			    show_all_data(db, "premise", 0);
 			    break;
 			case 'U':
 			case 'u':
-			    show_all_data(db, "user_name");
+			    show_all_data(db, "user_name", 0);
 			    break;
 			case 'Y':
 			case 'y':

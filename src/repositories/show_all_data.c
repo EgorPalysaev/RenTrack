@@ -1,11 +1,11 @@
 #include "../rentrack.h"
 
 
-enum ERR show_all_data(sqlite3 *db, const char *table){
+enum ERR show_all_data(sqlite3 *db, const char *table, int key){
     
     char sql[128];
     if (strcmp(table, "user_name") == 0){
-	snprintf(sql, sizeof sql, "SELECT * FROM \"%s\"", table);
+	snprintf(sql, sizeof sql, "SELECT * FROM \"%s\";", table);
 
 	sqlite3_stmt *stmt = NULL;
 	if (sqlite3_prepare_v2(db, sql, -1, &stmt, NULL) != SQLITE_OK){
@@ -26,19 +26,20 @@ enum ERR show_all_data(sqlite3 *db, const char *table){
 	return OK;
     }
     else if (strcmp(table, "premise") == 0){
-	snprintf(sql, sizeof sql, "SELECT * FROM \"%s\"", table);
+	if (key == 0) snprintf(sql, sizeof sql, "SELECT * FROM \"%s\";", table);
+	else if (key == 1) snprintf(sql, sizeof sql, "SELECT * FROM \"%s\" WHERE \"StatusID\" = 1;", table);
 
 	sqlite3_stmt *stmt = NULL;
 	if (sqlite3_prepare_v2(db, sql, -1, &stmt, NULL) != SQLITE_OK){
 	    fprintf(stderr, "SQLite error: %s\n", sqlite3_errmsg(db));
 	    return ERROR;
 	}
-
+	const char *const Status_array[] = {"Active", "Inactive", "In rent"};
 	printf("┏━━━━━━━━━━━┳━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━┓\n");
 	printf("┃ %-10s┃  %-10s┃  %-16s┃  %-16s┃  %-18s┃\n", "PremiseID", "Address", "Area", "Comment", "Status");
 	while (sqlite3_step(stmt) == SQLITE_ROW){
 	    printf("┣━━━━━━━━━━━╋━━━━━━━━━━━━╋━━━━━━━━━━━━━━━━━━╋━━━━━━━━━━━━━━━━━━╋━━━━━━━━━━━━━━━━━━━━┫\n");
-	    printf("┃ %-8d  ┃  %-10s┃  %-16d┃  %-16s┃  %-18d┃\n", sqlite3_column_int(stmt, 0), (char *)sqlite3_column_text(stmt, 1), sqlite3_column_int(stmt, 2), (char *)sqlite3_column_text(stmt, 3), sqlite3_column_int(stmt, 4));
+	    printf("┃ %-8d  ┃  %-10s┃  %-16d┃  %-16s┃  %-18s┃\n", sqlite3_column_int(stmt, 0), (char *)sqlite3_column_text(stmt, 1), sqlite3_column_int(stmt, 2), (char *)sqlite3_column_text(stmt, 3), Status_array[sqlite3_column_int(stmt, 4)-1]);
 	}
 	printf("┗━━━━━━━━━━━┻━━━━━━━━━━━━┻━━━━━━━━━━━━━━━━━━┻━━━━━━━━━━━━━━━━━━┻━━━━━━━━━━━━━━━━━━━━┛\n");
 	sqlite3_finalize(stmt);

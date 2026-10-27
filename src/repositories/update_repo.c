@@ -18,7 +18,7 @@ static const char *const premise_columns[] = {
 static const struct table_spec allowed_tables[] = {
     { "user_name", "UserID", user_columns,
       sizeof user_columns / sizeof user_columns[0] },
-    { "premise", "RoleID", premise_columns,
+    { "premise", "PremiseID", premise_columns,
       sizeof premise_columns / sizeof premise_columns[0] }
 };
 
@@ -65,8 +65,14 @@ enum ERR update_repo(sqlite3 *db, const char *table, const char *column, const c
     sqlite3_stmt *stmt = NULL;
     int rc = sqlite3_prepare_v2(db, sql, -1, &stmt, NULL);
 
-    if (rc == SQLITE_OK)
-        rc = sqlite3_bind_text(stmt, 1, value, -1, SQLITE_TRANSIENT);
+    int int_value = 0;
+    if (rc == SQLITE_OK){
+	if (checknum(value) == OK){
+	    string_to_decimal(value, &int_value);
+	    rc = sqlite3_bind_int64(stmt, 1, (sqlite3_int64)int_value);
+	}
+	else rc = sqlite3_bind_text(stmt, 1, value, -1, SQLITE_TRANSIENT);
+    }
     if (rc == SQLITE_OK)
         rc = sqlite3_bind_int64(stmt, 2, id);
     if (rc == SQLITE_OK)

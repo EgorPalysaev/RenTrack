@@ -24,15 +24,16 @@ enum ERR add_premise_repo(sqlite3* db, char * address, char* area, char* comment
 enum ERR auth_repo(sqlite3 *db, const char *login, const char *password, int* id, int* role);
 enum ERR user_data(sqlite3 *db, int id);
 enum ERR registration_repo(sqlite3* db, char * name, char* surname, char* patronymic, char* login, char* password, int Role);
-enum ERR show_all_data(sqlite3 *db, const char *table);
+enum ERR show_all_data(sqlite3 *db, const char *table, int key);
 enum ERR delete_repo(sqlite3 *db, const char *table);
 enum ERR update_repo(sqlite3 *db, const char *table, const char *column, const char *value, sqlite3_int64 id);
+enum ERR rent_repo(sqlite3 *db, int id);
 
 
 // services
 enum ERR data_registration(sqlite3* db, int Role);
 enum ERR add_premise(sqlite3* db);
-enum ERR update_service(const char table, char *column, char *value);
+enum ERR update_service(const char table, char column[], char *value, int* id);
 
 
 // Utils
