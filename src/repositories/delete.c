@@ -2,7 +2,7 @@
 
 enum ERR delete_repo(sqlite3 *db, const char *table){
     sqlite3_stmt *stmt = NULL;
-    char ID_text[16];
+    show_all_data(db, table, 0, 0);
     char sql[128];
     const char *column;
     if (strcmp(table, "premise") == 0) {
@@ -18,18 +18,19 @@ enum ERR delete_repo(sqlite3 *db, const char *table){
 	fprintf(stderr, "SQLite error: %s\n", sqlite3_errmsg(db));
 	return ERROR;
     }
-    if (read_line("Enret ID to delete: ", ID_text, sizeof ID_text, 0) != INPUT_OK){
-	sqlite3_finalize(stmt);
-	fprintf(stderr, "Invalid input");
+    printf("Enter ID to delete: ");
+    unsigned int removeble_id;
+    if (scanf("%d", &removeble_id) != 1){
+	printf("Invalid input for ID!\n");
 	return ERROR;
     }
-    int id;
-    if (string_to_decimal(ID_text, &id) != OK){
-	sqlite3_finalize(stmt);
-	fprintf(stderr, "Invalid ID\n");
-	return ERROR;
-	}
-    if (sqlite3_bind_int(stmt, 1, id) != SQLITE_OK){
+    while(getchar() != '\n');
+    printf("Are you sure to delete %d ID? (y)es, (n)o  ", removeble_id);
+    switch(chose()){
+	default: case 'n': case 'N': printf("Deletion canceled\n"); sqlite3_finalize(stmt); return ERROR; 
+	case 'Y': case 'y': break;
+    }
+    if (sqlite3_bind_int(stmt, 1, removeble_id) != SQLITE_OK){
 	sqlite3_finalize(stmt);
 	fprintf(stderr, "SQLite error: %s\n", sqlite3_errmsg(db));
 	return ERROR;

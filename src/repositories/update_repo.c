@@ -13,13 +13,18 @@ static const char *const user_columns[] = {
 static const char *const premise_columns[] = {
     "Address", "Area", "Comment", "StatusID"
 };
+static const char *const rent_columns[] = {
+    "UserID", "PremiseID", "Start_rent", "End_rent"
+};
 
 /* Add each table's real, permitted columns here. */
 static const struct table_spec allowed_tables[] = {
     { "user_name", "UserID", user_columns,
       sizeof user_columns / sizeof user_columns[0] },
     { "premise", "PremiseID", premise_columns,
-      sizeof premise_columns / sizeof premise_columns[0] }
+      sizeof premise_columns / sizeof premise_columns[0] },
+    { "user_rent", "RentID", rent_columns,
+      sizeof rent_columns / sizeof rent_columns[0] }
 };
 
 enum ERR update_repo(sqlite3 *db, const char *table, const char *column, const char *value, sqlite3_int64 id){

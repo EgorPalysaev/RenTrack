@@ -23,11 +23,14 @@ CREATE TABLE user_name(
 	RoleID INTEGER NOT NULL,
 	login TEXT NOT NULL UNIQUE CHECK (length(login) <= 32),
 	password TEXT NOT NULL CHECK (length(password) <= 32),
-	Name TEXT NOT NULL CHECK (length(Name) <= 32),			 --VARCHAR() can encode under 256 symdols
-	Surname TEXT NOT NULL CHECK (length(Surname) <= 32),			 --TEXT can encode under 2^16 symbols
+	Name TEXT NOT NULL CHECK (length(Name) <= 32),	
+	Surname TEXT NOT NULL CHECK (length(Surname) <= 32),
 	Patronymic TEXT DEFAULT NULL CHECK (Patronymic IS NULL OR length(Patronymic) <= 32),
 	FOREIGN KEY(RoleID) REFERENCES role_name(RoleID)
 );
+
+CREATE INDEX idx_user_name_role
+    ON user_namel (RoleID);
 
 CREATE TABLE premise(
 	PremiseID INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -37,12 +40,16 @@ CREATE TABLE premise(
 	StatusID INTEGER NOT NULL,
 	FOREIGN KEY(StatusID) REFERENCES status(StatusID)
 );
+
+CREATE INDEX idx_premise_status
+    ON premise (StatusID);
+
 CREATE TABLE user_rent(
 	RentID INTEGER PRIMARY KEY AUTOINCREMENT,
 	UserID INTEGER NOT NULL,
 	PremiseID INTEGER NOT NULL,
-	Start_rent TEXT DEFAULT CURRENT_TIMESTAMP,
-	End_rent TEXT DEFAULT NULL,
+	Start_rent DATE DEFAULT CURRENT_TIMESTAMP,
+	End_rent DATE DEFAULT NULL,
 	CHECK(End_rent IS NULL OR End_rent >= Start_rent),
 	FOREIGN KEY(PremiseID) REFERENCES premise(PremiseID),
 	FOREIGN KEY(UserID) REFERENCES user_name(UserID)

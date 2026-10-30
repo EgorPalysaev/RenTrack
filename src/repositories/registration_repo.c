@@ -22,8 +22,7 @@
 // }
 
 enum ERR registration_repo(sqlite3* db, char * name, char* surname, char* patronymic, char* login, char* password, int Role){
-    // enum ERR res;
-    // if ((res = registration_check(db, login)) == ERROR) return ERROR;
+    // if (registration_check(db, login) == ERROR) return ERROR;
 
     const char *sql =
     "INSERT INTO user_name "
