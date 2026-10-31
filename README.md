@@ -1,4 +1,4 @@
-This is a console app for management premises, rent(start and rent), and users data
+This is a console app for management premises, rent(start and end), and users data
 ## Possebilites
 - Users registration;
 - Users authentication;
