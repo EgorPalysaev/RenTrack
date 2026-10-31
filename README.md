@@ -8,79 +8,71 @@ This is a console app for management premises, rent(start and rent), and users d
 ```
 RenTrack/
 │
-├── docs/                       # Документация проекта
-│   └── UseCase.plantuml        # Диаграмма вариантов использования
+├── docs/
 │
-├── src/                        # Исходный код приложения
+├── src/
 │   │
 │   ├── rentrack.h
-│   ├── main.c              # Точка входа в приложение
-│   ├── auth.c              # Логика авторизации
-│   ├── menu.c              # Консольное меню
+│   ├── main.c              # App start-up
+│   ├── menu.c              # Console menu
 │   │
-│   ├── database/           # Работа с базой данных
-│   ├── repositories/       # Доступ к данным
-│   └── services/           # Бизнес-логика приложения
+│   ├── database/           # Database, SQL-schema
+│   ├── repositories/       # Database interaction
+│   └── services/           # Service layout
 │
-├── tests/                      # Автоматизированные тесты
+├── tests/
 │   │
-│   ├── rentrack.h
 │   └── test_main.c
 │        
-├── .gitignore                  # Исключения для Git
-├── .git/
-├── README.md                   # Документация проекта
-└── requirements.txt            # Зависимости проекта
+├── README.md
+└── requirements.txt
 ```
 ## Architecture
 ```
-Пользователь
+Console Interface (main.с, menu.с)
      │
      ▼
-Консольный интерфейс
-(main.с, menu.с, auth.с)
+Services
      │
      ▼
-Сервисный слой
-(services)
+Repositories
      │
      ▼
-Слой доступа к данным
-(repositories)
-     │
-     ▼
-База данных
-(database)
+Database
 ```
-## Основные компоненты
-**`main.c`**  
-Точка входа в приложение. Выполняет инициализацию необходимых компонентов и запускает программу.  
+## Main component
+**`main.c`** - Complete initialization of nessecerary component and run the app 
 
-**`menu.c`**  
-Содержит логику взаимодействия с пользователем через консольное меню.    
+**`menu.c`** - Console user interface   
 
-**`repositories`**  
-Содержит компоненты, отвечающие за получение, добавление, изменение и удаление данных.  
+**`repositories`** - CRUD  
 
-**`services`**  
-Содержит бизнес-логику приложения и обеспечивает взаимодействие между пользовательским интерфейсом и слоем доступа к данным.  
+**`services`** - Associating user and repository 
 
-**`database`**  
-Содержит компоненты, необходимые для работы с базой данных и её инициализации.  
+**`database`**  Initializate database 
 
 ## Installation
-Be aware that you need pre-install docker
+Be aware that you need to pre-install docker
 ```
 git clone https://github.com/EgorPalysaev/RenTrack.git
 cd RenTrack/
 ```
 Based on your OS complete:
-make arch
-make fedora
-make ubuntu
-make mac
-make win
+
+```make arch```
+
+```make fedora```
+
+```make ubuntu```
+
+```make mac```
+
+```make win```
 
 Or you can download container from docker-hub
 
-docker pull egorpalysaev/rent-tracking-database
+```docker pull egorpalysaev/rent-tracking-database```
+
+If you have pre-installed GCC/Clang compiler and SQLite, you can simply run:
+
+```make```
