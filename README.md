@@ -4,7 +4,7 @@ This is a console app for management premises, rent(start and end), and users da
 - Users authentication;
 - Data management;
 - Local database.
-## Структура проекта
+## Structure
 ```
 RenTrack/
 │
